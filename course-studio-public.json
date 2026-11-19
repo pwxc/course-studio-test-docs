@@ -13,6 +13,67 @@
       "assets": [
         "/assets/3e149a33-246a-4cb7-8a40-6c9f6581abd5.png"
       ]
+    },
+    {
+      "id": "b94c0933-4ea9-4c12-8f69-d1cdee511d4d",
+      "courseId": "c9094544-8c78-4702-8813-45d612d32ac5",
+      "courseTitle": "二十一天学通深度学习",
+      "sectionId": "f1f04f40-fd7a-4879-b6e1-b4f74984e01f",
+      "sectionTitle": "第一章 · 训练数据",
+      "title": "训练数据",
+      "order": 0,
+      "markdown": "# 训练数据\n\n## 一条样本里，什么是输入？\n\n例子：用房屋面积和室外气温预测当日电量。不看代码，先指出哪两列能在预测前拿到，哪一列是事后知道的答案。\n\n| 样本 | 面积（㎡） | 气温（℃） | 日电量（kWh） |\n| -- | ----- | ----- | -------- |\n| 01 | 72    | 30    | 11.2     |\n| 02 | 85    | 33    | 14.8     |\n| 03 | 60    | 26    | 7.4      |\n\n样本编号只用于追踪。面积和气温是特征，电量是标签。把两列特征组成 X，把一列标签组成 y。\n\n$$\nX_{1,:} = [72, 30], \\quad y_1 = 11.2\n$$\n\n## 谁可以看答案？\n\n![10 条样本分成 6 条训练、2 条验证、2 条测试](/assets/d8f2e951-aec4-4a98-809b-dff64ddd55b7.png)\n\n训练集用来学参数，验证集用来选模型，测试集等方案定好后再做最终评估。\n\n这里的样本是虚构的，6:2:2 只为演示。真实数据如果来自同一栋房子或连续日期，常需要按房屋或时间划分，而不是把所有行随机打散。\n\n## 动手：给 10 条样本分组\n\n```python\nfrom random import Random\n\nrows = list(range(1, 11))\nRandom(21).shuffle(rows)\ntrain, valid, test = rows[:6], rows[6:8], rows[8:]\nprint(train, valid, test)\n```\n\n只改随机种子，分到三个集合的样本会变吗？它们的数量会变吗？\n",
+      "assets": [
+        "/assets/d8f2e951-aec4-4a98-809b-dff64ddd55b7.png"
+      ]
+    },
+    {
+      "id": "d3ab21bf-cf89-4c55-9fa7-9e88d7d1c6d5",
+      "courseId": "c9094544-8c78-4702-8813-45d612d32ac5",
+      "courseTitle": "二十一天学通深度学习",
+      "sectionId": "f1f04f40-fd7a-4879-b6e1-b4f74984e01f",
+      "sectionTitle": "第一章 · 训练数据",
+      "title": "识别数据泄漏",
+      "order": 1,
+      "markdown": "# 识别数据泄漏\n\n## 两个看起来很准的模型\n\n模型 A 只拿面积和气温；模型 B 还拿了当天结束后才产生的电费账单。即使 B 的分数更好，也不能据此说它适合预测当日电量。\n\n## 划分之后，才算标准化参数\n\n![复用训练数据课的三种集合示意图](/assets/d8f2e951-aec4-4a98-809b-dff64ddd55b7.png)\n\n只在训练集计算均值和标准差；验证集和测试集使用训练集算出的同一组参数，不重新拟合。\n\n$$\nz = \\frac{x - \\mu_{\\mathrm{train}}}{\\sigma_{\\mathrm{train}}}\n$$\n\n## 做一个判断\n\n同一台设备一天内的十条连续读数，该按行随机拆开，还是让一个完整时间段只出现在测试集？说明理由。\n",
+      "assets": [
+        "/assets/d8f2e951-aec4-4a98-809b-dff64ddd55b7.png"
+      ]
+    },
+    {
+      "id": "6ead2f6a-21b6-465d-9619-ba5fbc49e585",
+      "courseId": "c9094544-8c78-4702-8813-45d612d32ac5",
+      "courseTitle": "二十一天学通深度学习",
+      "sectionId": "03850969-a947-45f8-aded-a42cff2ecceb",
+      "sectionTitle": "第二章 · 模型与优化",
+      "title": "认识模型",
+      "order": 2,
+      "markdown": "# 认识模型\n\n## 从一个简单预测开始\n\n模型把输入转换成预测。我们先用一个参数，观察它如何影响结果。\n\n$$\n\\hat{y} = wx + b\n$$\n\n## 输入、参数与输出\n\n- 输入：已经观察到的数据\n\n- 参数：可以通过学习调整的数值\n\n- 输出：模型给出的预测\n",
+      "assets": []
+    },
+    {
+      "id": "548a0447-4ca8-4df5-ba3e-63d8f62d8d13",
+      "courseId": "c9094544-8c78-4702-8813-45d612d32ac5",
+      "courseTitle": "二十一天学通深度学习",
+      "sectionId": "03850969-a947-45f8-aded-a42cff2ecceb",
+      "sectionTitle": "第二章 · 模型与优化",
+      "title": "损失函数",
+      "order": 3,
+      "markdown": "# 损失函数\n\n## 把误差变成一个数\n\n损失函数衡量预测与目标的差距。损失越小，通常意味着当前模型更接近目标。\n\n$$\nL(w) = (w - 3)^2\n$$\n\n平方会放大较大的误差，也使正负误差都得到非负的损失。\n",
+      "assets": []
+    },
+    {
+      "id": "0467e487-cbf2-4092-a1ec-dcf1c1799248",
+      "courseId": "c9094544-8c78-4702-8813-45d612d32ac5",
+      "courseTitle": "二十一天学通深度学习",
+      "sectionId": "03850969-a947-45f8-aded-a42cff2ecceb",
+      "sectionTitle": "第二章 · 模型与优化",
+      "title": "梯度下降",
+      "order": 4,
+      "markdown": "# 梯度下降\n\n## 先只动一个参数\n\n先预测结果，再比较误差，最后尝试更新参数。\n\n$$\n\\hat{y} = w \\times x\n$$\n\n\n\n\n\n\n\n## 学习率影响什么\n\n方向相同，步长不同。\n\n步长过小改善慢，过大可能越过更好的位置。先保留这段完整解释，讲解时聚焦更新公式和步长。\n\n$$\n\\theta_{\\mathrm{new}} = \\theta - \\alpha \\cdot \\frac{\\partial L}{\\partial \\theta}\n$$\n\n比较不同学习率，观察参数更新的变化。\n\n\n\n\n\n\n\n## 用图像验证直觉\n\n同一个起点，不同的步长。\n\n![不同学习率下的参数更新轨迹](/assets/9a33b93f-a7ae-4e4b-a9ff-08f5c29da08b.png)\n\n当学习率很大时，参数可能来回跨越目标；继续增大学习率还可能不再收敛。\n",
+      "assets": [
+        "/assets/9a33b93f-a7ae-4e4b-a9ff-08f5c29da08b.png"
+      ]
     }
   ]
 }
